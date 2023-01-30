@@ -1,38 +1,52 @@
 const bankModel = require("../model/bank_model");
+const Bank = require("../model/bank_model");
+const asyncWrapper = require("../middlewares/async");
+const { creatNewError } = require("../error/customError");
 
-const handleBankPostRequest = (req, res) => {
-  const { name, address, location, accountNumber } = req.body;
-  let bank = new bankModel(name, address, location, accountNumber);
-  bank.createBank();
-  res.json({ message: "Message sent succesfully", data: bank });
-};
+const getAllBanks = asyncWrapper(async function (req, res) {
+  const banks = await Bank.find({});
+  res.status(200).json({ banks });
+});
 
-const handleBankGetRequest = function (req, res) {
-  const listBank = bankModel.all();
-  res.json({ msg: "Collection Successful", data: listBank });
-};
+const createBank = asyncWrapper(async (req, res) => {
+  const bank = await Bank.create(req.body);
+  res.status(201).json({ bank });
+});
 
-const handleBankPutRequest = (req, res) => {
-  const { name, address, location, accountNumber } = req.body;
-  const updatedBank = bankModel.update({
-    name,
-    address,
-    location,
-    accountNumber,
+const getSingleBank = asyncWrapper(async (req, res, next) => {
+  const { id: bankId } = req.params;
+  const bank = await Bank.findById({ _id: bankId });
+  if (!bank) {
+    return next(creatNewError(`No resource found with id:${bankId}`, 404));
+  }
+  res.status(200).json({ bank });
+});
+const updateBank = asyncWrapper(async (req, res, next) => {
+  const { id: bankId } = req.params;
+  const bank = await Bank.findOneAndUpdate({ _id: bankId }, req.body, {
+    new: true,
+    runValidators: true,
   });
-  res.json({ msg: "Changes made succesfully", data: updatedBank });
-};
 
-const handleBankDeleteRequest = (req, res) => {
-  const { name } = req.body;
-  console.log(req.body);
-  const deletedBank = bankModel.delete(name);
-  res.json({ msg: "Deleted succesfully", data: deletedBank });
-};
+  if (!bank) {
+    return next(creatNewError(`No resource found with id:${bankId}`, 404));
+  }
+  res.status(200).json({ bank });
+});
+
+const deleteBank = asyncWrapper(async (req, res, next) => {
+  const { id: bankId } = req.params;
+
+  const bank = await Bank.findOneAndDelete({ _id: bankId });
+  if (!bank) {
+    return next(creatNewError(`No resource found with id:${bankId}`, 404));
+  }
+});
 
 module.exports = {
-  handleBankDeleteRequest,
-  handleBankGetRequest,
-  handleBankPostRequest,
-  handleBankPutRequest,
+  getAllBanks,
+  getSingleBank,
+  updateBank,
+  deleteBank,
+  createBank,
 };

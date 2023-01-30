@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="./bank.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+ <title>Document</title>
+</head>
+
+<body>
+ <div class="container">
+  <h1 class="title">Welcome to your Bank App</h1>
+  <div class="form_container">
+   <form class="form">
+    <label for="name">Bank Name</label>
+    <input type="text" name="name" placeholder="Please enter name" class="nameInput">
+    <label for="account number">Acct. Number</label>
+    <input type="text" name="account" placeholder="e.g 011258652463155" class="accountInput">
+    <label for="address">Address</label>
+    <input type="text" name="address" placeholder="e.g Veernaya street, 2" class="addressInput">
+    <label for="location">Location</label>
+    <input type="text" name="location" placeholder="Please enter location" class="locationInput">
+    <button class="btn" type="submit">Submit</button>
+    <div class="form_alert"></div>
+   </form>
+  </div>
+  <div class="overlay"></div>
+  <section class="output_container">
+   <div class="loading"></div>
+   <div class="output"></div>
+  </section>
+  <section class="modal">
+   <div class="form_container">
+    <form class="modal_form">
+     <label for="name">Bank Name</label>
+     <input type="text" name="name" class="modalNameInput">
+     <label for="account number">Acct. Number</label>
+     <input type="text" name="account" class="modalAccountInput">
+     <label for="address">Address</label>
+     <input type="text" name="address" class="modaladdressInput">
+     <label for="location">Location</label>
+     <input type="text" name="location" class="modalLocationInput">
+     <button class="modalBtn" type="submit">Submit</button>
+     <div class="modal_form_alert"></div>
+     <button class="closeBtn">
+      <?xml version="1.0" encoding="UTF-8"?><svg width="45" height="45" viewBox="0 0 48 48" fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+       <rect width="48" height="48" fill="white" fill-opacity="0.01" />
+       <path d="M14 14L34 34" stroke="rgb(230, 11, 11)" stroke-width="1" stroke-linecap="round"
+        stroke-linejoin="round" />
+       <path d="M14 34L34 14" stroke="rgb(230, 11, 11)" stroke-width="1" stroke-linecap="round"
+        stroke-linejoin="round" />
+      </svg>
+     </button>
+    </form>
+   </div>
+
+   <!-- <i class="fa-solid fa-circle-xmark"></i> -->
+
+
+  </section>
+
+ </div>
+ </div>
+ </div>
+ <!-- axios -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+  integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <script src="./bank.js"></script>
+</body>
+
+</html>

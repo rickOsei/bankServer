@@ -1,18 +1,14 @@
 const express = require("express");
 const {
-  handleBankDeleteRequest,
-  handleBankGetRequest,
-  handleBankPostRequest,
-  handleBankPutRequest,
+  deleteBank,
+  getAllBanks,
+  createBank,
+  updateBank,
+  getSingleBank,
 } = require("../controller/bank_controller");
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(handleBankGetRequest)
-  .post(handleBankPostRequest)
-  .put(handleBankPutRequest)
-  .delete(handleBankDeleteRequest);
-
+router.route("/").get(getAllBanks).post(createBank);
+router.route("/:id").get(getSingleBank).patch(updateBank).delete(deleteBank);
 module.exports = router;
